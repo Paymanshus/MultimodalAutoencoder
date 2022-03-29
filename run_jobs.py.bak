@@ -119,14 +119,14 @@ def run_job(job_obj):
 			be mailed to the user
 	"""
 
-	print(("\nRunning job", job_obj.name))	
+	print("\nRunning job", job_obj.name)	
 	
 	if os.path.exists(job_obj.output_file):
 		# Will currently crash if the output file already exists. This is in case the 
 		# output file is the result of hours of computation and the command was run in 
 		# error. 
 		message = "The desired output file " + job_obj.output_file + " already exists."
-		print(("Error!", message))
+		print("Error!", message)
 		return ERROR, message
 
 	# Time the job
@@ -150,11 +150,11 @@ def run_job(job_obj):
 
 	if not os.path.exists(job_obj.output_file):
 		message = "Job failed to create the desired output file."
-		print(("Error!", message))
+		print("Error!", message)
 		code = ERROR
 	elif total_secs < MINIMUM_JOB_SECONDS:
 		message = "The total time taken for the job was suspiciously short."
-		print(("Warning!", message))
+		print("Warning!", message)
 		code = WARNING
 	else:
 		message = ""
@@ -206,6 +206,6 @@ if __name__ == "__main__":
 
 	filename= sys.argv[1]
 	jobfile=sys.argv[1]
-	print(("Running all jobs in file", jobfile, ". . ."))
+	print("Running all jobs in file", jobfile, ". . .")
 
 	run_jobs(jobfile)

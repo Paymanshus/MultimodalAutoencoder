@@ -44,7 +44,7 @@ def transform_PCA(X_train, X_all, n_components=100):
     """
     pca = PCA(n_components=n_components)
     pca.fit(X_train)
-    print(("Total explained variance:", sum(pca.explained_variance_ratio_)))
+    print("Total explained variance:", sum(pca.explained_variance_ratio_))
 
     return pca.transform(X_all), pca
 

@@ -578,9 +578,9 @@ class MultimodalAutoencoder:
                     self.val_loss.append(val_loss)
 
                     if self.verbose:
-                        print(("Training iteration", step))
-                        print(("\t Training loss", train_loss))
-                        print(("\t Validation loss", val_loss))
+                        print("Training iteration", step)
+                        print("\t Training loss", train_loss)
+                        print("\t Validation loss", val_loss)
 
                 if step > 0 and step % self.save_every_nth == 0:
                     # Save a checkpoint of the model
@@ -633,11 +633,11 @@ class MultimodalAutoencoder:
                     self.classification_val_loss.append(val_loss)
 
                     if self.verbose:
-                        print(("Training iteration", step))
-                        print(("\t Training loss", train_loss))
-                        print(("\t Validation loss", val_loss))
-                        print(("\t Training accuracy", train_acc))
-                        print(("\t Validation accuracy", val_acc))
+                        print("Training iteration", step)
+                        print("\t Training loss", train_loss)
+                        print("\t Validation loss", val_loss)
+                        print("\t Training accuracy", train_acc)
+                        print("\t Validation accuracy", val_acc)
 
                 if step > 0 and step % self.save_every_nth == 0:
                     # Save a checkpoint of the model
@@ -822,17 +822,17 @@ class MultimodalAutoencoder:
             checkpoint_file = os.path.join(directory, checkpoint_name)
         else:
             checkpoint_file = tf.train.latest_checkpoint(directory)
-            print(("Looking for checkpoin in directory", directory))
+            print("Looking for checkpoin in directory", directory)
 
         if checkpoint_file is None:
             print("Error! Cannot locate checkpoint in the directory")
             return
         else:
-            print(("Found checkpoint file:", checkpoint_file))
+            print("Found checkpoint file:", checkpoint_file)
 
         if npz_file_name is not None:
             npz_file_name = os.path.join(directory, npz_file_name)
-            print(("Attempting to load saved reward values from file", npz_file_name))
+            print("Attempting to load saved reward values from file", npz_file_name)
             npz_file = np.load(npz_file_name)
 
             self.train_loss = list(npz_file['train_loss'])
@@ -872,8 +872,8 @@ class MultimodalAutoencoder:
             A Boolean that will be true if the setting is different. 
         """
         if setting_name not in list(npz_file.keys()):
-            print(("ERROR! The setting", setting_name, "is not in the saved model file."))
-            print(("Using default value:", class_var))
+            print("ERROR! The setting", setting_name, "is not in the saved model file.")
+            print("Using default value:", class_var)
             print("")
             return False
         
@@ -889,10 +889,10 @@ class MultimodalAutoencoder:
             equal = False
             
         if not equal:
-            print(("WARNING! Saved setting for", setting_name, "is different!"))
-            print(("\tModel's current value for", setting_name, "is", class_var))
-            print(("\tBut it was saved as", npz_file[setting_name]))
-            print(("Overwriting setting", setting_name, "with new value:", npz_file[setting_name]))
+            print("WARNING! Saved setting for", setting_name, "is different!")
+            print("\tModel's current value for", setting_name, "is", class_var)
+            print("\tBut it was saved as", npz_file[setting_name])
+            print("Overwriting setting", setting_name, "with new value:", npz_file[setting_name])
             print("")
         return True
     
@@ -990,7 +990,7 @@ class MultimodalAutoencoder:
         
         Returns: Float loss"""
         loss = self.get_performance_on_data(self.data_loader.val_X)
-        print(("Final loss on validation data is:", loss))
+        print("Final loss on validation data is:", loss)
         return loss
         
     def test_on_test(self):
@@ -1000,7 +1000,7 @@ class MultimodalAutoencoder:
         print("WARNING! Only test on the test set when you have finished choosing all of your hyperparameters!")
         print("\tNever use the test set to choose hyperparameters!!!")
         loss = self.get_performance_on_data(self.data_loader.test_X)
-        print(("Final loss on test data is:", loss))
+        print("Final loss on test data is:", loss)
         return loss
 
     def get_performance_on_data(self, X):
@@ -1203,7 +1203,7 @@ class MultimodalAutoencoder:
             noisy_X = copy.deepcopy(X)
             noisy_X[:,start_i:end_i] = -1.0 * np.ones((len(X),end_i-start_i))
 
-            if self.verbose: print(("DEBUG: feeding in noisy matrix. Average value over masked area:", np.mean(noisy_X[:,start_i:end_i])))
+            if self.verbose: print("DEBUG: feeding in noisy matrix. Average value over masked area:", np.mean(noisy_X[:,start_i:end_i]))
 
             # Get reconstruction
             reconstruction, loss = self.predict(noisy_X)
@@ -1212,7 +1212,7 @@ class MultimodalAutoencoder:
             feats = X[:,start_i:end_i]
             reconstruct_feats = reconstruction[:,start_i:end_i]
             rms[i] = get_rmse(feats,reconstruct_feats)
-            print(("RMS for modality", name, "is", rms[i], "\n"))
+            print("RMS for modality", name, "is", rms[i], "\n")
         
         return rms
 
